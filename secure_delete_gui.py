@@ -338,20 +338,12 @@ def ui_start(state: dict) -> None:
 
 def build_ui(state: dict) -> None:
     root = state["root"]
-    root.title("Безопасное удаление (перезапись + удаление)")
-    root.geometry("1120x740")
-    root.resizable(False, False)
+    root.title("Удаление файлов")
+    root.geometry("1280x1024")
+    root.resizable(True, True)
     main = ttk.Frame(root, padding=12)
     main.pack(fill="both", expand=True)
-    ttk.Label(
-        main,
-        text=(
-            "Внимание: гарантировать необратимость нельзя на SSD/флеш-носителях, "
-            "некоторых файловых системах, а также при наличии бэкапов/снимков/синхронизации."
-        ),
-        foreground="#9a1b1b",
-        wraplength=1080,
-    ).pack(anchor="w")
+   
     files_frame = ttk.LabelFrame(main, text="Файлы", padding=10)
     files_frame.pack(fill="both", expand=True, pady=(10, 10))
     lb = tk.Listbox(files_frame, selectmode="extended", height=12)
