@@ -1,9 +1,10 @@
 $ErrorActionPreference = "Stop"
 
-$menuKey = "HKCU:\Software\Classes\*\shell\SecureDeleteOverwrite"
-
-if (Test-Path -LiteralPath $menuKey) {
-  Remove-Item -LiteralPath $menuKey -Recurse -Force
+$subKey = "Software\Classes\*\shell\SecureDeleteOverwrite"
+$parentKey = [Microsoft.Win32.Registry]::CurrentUser.OpenSubKey("Software\Classes\*\shell", $true)
+if ($parentKey) {
+  try { $parentKey.DeleteSubKeyTree("SecureDeleteOverwrite", $false) } catch {}
+  $parentKey.Close()
 }
 
 Write-Host "Done. Context menu item removed for current user."
